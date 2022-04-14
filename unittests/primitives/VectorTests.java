@@ -1,11 +1,8 @@
 /**
  * 
  */
-package unittests.primitives;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
-import static org.junit.Assert.assertTrue;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import primitives.*;
@@ -37,7 +34,7 @@ class VectorTests {
 
 	        // TC01: Test that the function add adds the vector in the right way
 	        // for simplicity)
-	        assertEquals("add()-ERROR: Point + Vector does not work correctly", vr,new Vector(1,5,1));
+	        assertEquals( vr,new Vector(1,5,1),"add()-ERROR: Point + Vector does not work correctly");
 
 
 	}
@@ -55,7 +52,7 @@ class VectorTests {
 
 	        // TC01: Test that the function add adds the vector in the right way
 	        // for simplicity)
-	        assertEquals("subtract()-ERROR: Point - Vector does not work correctly", vr,new Vector(1,-1,5));
+	        assertEquals( vr,new Vector(1,-1,5),"subtract()-ERROR: Point - Vector does not work correctly");
 
 	}
 
@@ -71,7 +68,7 @@ class VectorTests {
 	        Vector vr = v1.scale(2);
 	        // TC01: Test that the function scale works the vector in the right way
 	        // for simplicity)
-	        assertEquals("scale() wrong result of a vector", vr,new Vector(2,4,6));
+	        assertEquals( vr,new Vector(2,4,6),"scale() wrong result of a vector");
 	       
 	        // =============== Boundary Values Tests ==================
 	        // TC11: test zero scale for the scale function
@@ -90,8 +87,8 @@ class VectorTests {
 		 Vector v3=new Vector(-2, -4, -6);
 	     double vr1 = v1.dotProduct(v2);
 	     double vr2 = v1.dotProduct(v3);
-		assertTrue("ERROR: dotProduct() for orthogonal vectors is not zero",isZero(vr1));
-	    assertTrue("ERROR: dotProduct() wrong value",isZero(vr2+28));}
+		assertTrue(isZero(vr1),"ERROR: dotProduct() for orthogonal vectors is not zero");
+	    assertTrue(isZero(vr2+28),"ERROR: dotProduct() wrong value");}
 
 	/**
 	 * Test method for {@link primitives.Vector#crossProduct(primitives.Vector)}.
@@ -107,10 +104,10 @@ class VectorTests {
 
         // TC01: Test that length of cross-product is proper (orthogonal vectors taken
         // for simplicity)
-        assertEquals("crossProduct() wrong result length", v1.length() * v2.length(), vr.length(), 0.00001);
+        assertEquals( v1.length() * v2.length(), vr.length(), 0.00001,"crossProduct() wrong result length");
 
         // TC02: Test cross-product result orthogonality to its operands
-        assertTrue("crossProduct() result is not orthogonal to 1st operand", isZero(vr.dotProduct(v1)));
+        assertTrue( isZero(vr.dotProduct(v1)),"crossProduct() result is not orthogonal to 1st operand");
         assertTrue( isZero(vr.dotProduct(v2)),"crossProduct() result is not orthogonal to 2nd operand");
 
         // =============== Boundary Values Tests ==================
