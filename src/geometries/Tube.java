@@ -4,6 +4,8 @@ import primitives.Point;
 import primitives.Ray;
 import primitives.Vector;
 
+import java.util.List;
+
 public class Tube implements Geometry {
 
 	Ray axisRay;
@@ -24,7 +26,5 @@ public class Tube implements Geometry {
 		else // in case the point is across the ray point
 			return p.subtract(axisRay.getP0()).normalize();
 	}
-  public List<Point> findIntsersections(Ray ray){
-    return null;
-    }
+	public List<Point> findIntsersections(Ray ray){return null;}
 }

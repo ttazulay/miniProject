@@ -1,7 +1,8 @@
 package geometries;
 import java.lang.Math;
-import primitives.Point;
-import primitives.Vector;
+import java.util.List;
+
+import primitives.*;
 
 public class Plane implements Geometry {
 
@@ -64,11 +65,15 @@ public class Plane implements Geometry {
   
   public List<Point> findIntsersections(Ray ray){
     List<Point> Point_Intsersections=null;
-    double t=(normal.dotProduct(p0.subtract(ray.getP0())))\normal.dotProduct(ray.getnormal())
-    vector length=new vector (ray.getnormal()).scale(t);
+      double counter=normal.dotProduct(p0.subtract(ray.getP0()));
+      double denominator=normal.dotProduct(ray.getDir());
+    double t=counter/denominator;
+      if(t<0)
+          return null;
+      Vector length=(ray.getDir()).scale(t);
+      Point_Intsersections.add((ray.getP0()).add(length));
     
-    return ((t!=0)?Point_Intsersections.add((ray.getP0()).add(length)):null)
-     ;
+    return ((t!=0)?Point_Intsersections:null);
     }
 	
 }
