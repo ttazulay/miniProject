@@ -26,10 +26,13 @@ public Sphere(Point center, double radius) {
     double tm=ray.getDir().dotProduct(u);
     double d=Math.sqrt(u.lengthSquared()-Math.pow(tm, 2));
     double th=Math.sqrt(Math.pow(radius,2)-Math.pow(tm, 2));
-    Point p1=new Point(ray.getP0().add(ray.getDir().scale(tm+th)));
-    Point p2=new Point(ray.getP0().add(ray.getDir().scale(tm-th)));
+    Vector v1=ray.getDir().scale(tm+th);
+    Vector v2=ray.getDir().scale(tm-th);
+    Point p1=ray.getP0().add(v1);
+    Point p2=ray.getP0().add(v2);
     Sphere_Intsersections.add(p1);
     Sphere_Intsersections.add(p2);
     return Sphere_Intsersections;
-    } 
+    }
+
 }

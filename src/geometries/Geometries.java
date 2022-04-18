@@ -1,26 +1,36 @@
 package geometries;
-import primitives.Point;
-import primitives.Ray;
-import primitives.Util;
-import primitives.Vector;
+import primitives.*;
+
+import java.util.*;
+
 public class Geometries implements Intersectable {
+
     List<Intersectable> list;
     Geometries(){
         list= new LinkedList();
     }
     public Geometries(Intersectable... geometries){
-        list= new LinkedList(geometries);
+        this.add(geometries);
     }
     public void add(Intersectable... geometries){
-        for each(Intersectable i in geometries){
-            list.add(i)
+        for (Intersectable i :geometries) {
+
+            list.add(i);
         }
 
     }
-    public List<Point> findIntsersections(Ray ray){
-        List<Point> result=new List();
-        for each(Intersectable i in list){
-            result.add(i.findIntsersections(ray));
-        }
+    public List<Point> findIntsersections(Ray ray) {
+        List<Point> result = null;
 
+        List<Point> one_geometrie = new LinkedList<Point>();
+
+        for (Intersectable i : list) {
+            one_geometrie = i.findIntsersections(ray);
+            for (Point p : one_geometrie) {
+                result.add(p);
+            }
+        }
+        return result;
     }
+
+}
