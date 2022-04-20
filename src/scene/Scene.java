@@ -6,7 +6,8 @@ import primitives.*;
 
 public class Scene {
     public String name;
-    public Color background;
+    public Color _background = new Color(0, 0, 0);
     public AmbientLight ambientLight;
     public Geometries geometries;
+
 }

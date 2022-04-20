@@ -15,6 +15,8 @@ public class Camera {
     protected Double Length ;
     protected Double width ;
     protected Double distance ;
+    protected ImageWriter image ;
+    protected RayTracerBase base ;
 
     public Camera(Point location, Vector vto, Vector vup) {
 
