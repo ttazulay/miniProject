@@ -10,4 +10,8 @@ public class Scene {
     public AmbientLight ambientLight;
     public Geometries geometries;
 
+    public Scene(String name) {
+        this.name = name;
+        geometries=new Geometries();
+    }
 }

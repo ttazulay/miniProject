@@ -1,5 +1,3 @@
-package unittests.renderer;
-
 import org.junit.jupiter.api.Test;
 
 import lighting.AmbientLight;
