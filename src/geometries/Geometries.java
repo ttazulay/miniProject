@@ -6,6 +6,7 @@ import java.util.*;
 public class Geometries implements Intersectable {
 
     List<Intersectable> list;
+    
     Geometries(){
         list= new LinkedList();
     }
