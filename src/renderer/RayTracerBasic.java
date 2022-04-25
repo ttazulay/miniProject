@@ -102,7 +102,7 @@ public class RayTracerBasic extends RayTracerBase {
 	 * @return the color intensity
 	 */
 
-	private Color calcColor(GeoPoint intersection, Ray ray, int level, double k) {
+	private Color calcColor(GeoPoint  intersection, Ray ray, int level, double k) {
 
 		Color color = intersection.geometry.getEmission();
 		color = color.add(calcLocalEffects(intersection, ray, k));// add calculated light contribution from all light
