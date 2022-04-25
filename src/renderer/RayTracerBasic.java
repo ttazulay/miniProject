@@ -4,13 +4,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import primitives.Util;
-import elements.LightSource;
-import geometries.Intersectable.GeoPoint;
-import primitives.Color;
-import primitives.Material;
-import primitives.Point3D;
-import primitives.Ray;
-import primitives.Vector;
+//import elements.LightSource;
+//import geometries.Intersectable.GeoPoint;
+import primitives.*;
 import scene.Scene;
 import static primitives.Util.alignZero;
 
