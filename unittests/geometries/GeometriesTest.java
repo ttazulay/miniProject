@@ -59,6 +59,6 @@ public class GeometriesTest {
 
         //TC5: all geometries get intersected
         result = geometries.findIntsersections(new Ray(new Vector(0,0, -1), new Point(0.5, 0.5, 4)));
-        assertEquals( 4, result.size(),"Wrong number of points",);
+        assertEquals( 4, result.size(),"Wrong number of points");
     }
 }

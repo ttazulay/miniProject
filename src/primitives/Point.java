@@ -9,7 +9,8 @@ import java.util.Objects;
 
 public class Point
 {
-	protected Double3 xyz ;
+    public static final Point ZERO = new Point(0, 0, 0);
+    protected Double3 xyz ;
 	
 /**
  * this ctor gets 3 params type double

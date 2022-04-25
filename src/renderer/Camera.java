@@ -1,10 +1,9 @@
 package renderer;
 
-import primitives.Double3;
-import primitives.Point;
-import primitives.Ray;
-import primitives.Vector;
+import primitives.*;
+import scene.Scene;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Camera {
@@ -44,6 +43,35 @@ public class Camera {
     }
     public Ray constructRay(int nX, int nY, int j, int i){
         return null;
+    }
+
+    public Camera setImageWriter(ImageWriter image) {
+        this.image = image;
+        return this;
+    }
+
+    public Camera setRayTracer(RayTracerBasic rayTracerBasic) {
+        this.base = rayTracerBasic;
+        return this;
+    }
+
+    public void renderImage() {
+/*        int Nx=this.image.getNx();
+        int Ny=this.image.getNy();
+        for (int i = 0; i < Nx ; i++) {
+            for (int j = 0; j <Ny ; j++) {
+                Ray  rayCasting=constructRay(Nx,Ny,j,i);
+                List<Point>rayL=
+            }
+
+        }*/
+    }
+
+    public void printGrid(int i, Color color) {
+    }
+
+    public void writeToImage() {
+        this.image.writeToImage();
     }
 }
 

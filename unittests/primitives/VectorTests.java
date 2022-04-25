@@ -72,8 +72,8 @@ class VectorTests {
 	       
 	        // =============== Boundary Values Tests ==================
 	        // TC11: test zero scale for the scale function
-	        assertThrows("scale()   does not throw an exception",
-	                IllegalArgumentException.class, () -> v1.scale(0));
+	        assertThrows(
+	                IllegalArgumentException.class, () -> v1.scale(0),"scale()   does not throw an exception");
 
 	}
 
