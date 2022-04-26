@@ -54,6 +54,11 @@ public class Ray {
 		return p0.add(dir.scale(t));
   }
 
+	/**
+	 * find the closest point
+	 * @param lp
+	 * @return
+	 */
 	public Point findClosestPoint(List<Point> lp)
 	{
 		double mini_dis= this.p0.distance(lp.get(0));

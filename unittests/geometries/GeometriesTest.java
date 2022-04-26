@@ -1,3 +1,4 @@
+/*
 
 import geometries.Geometries;
 import geometries.Intersectable;
@@ -62,3 +63,5 @@ public class GeometriesTest {
         assertEquals( 4, result.size(),"Wrong number of points");
     }
 }
+
+ */

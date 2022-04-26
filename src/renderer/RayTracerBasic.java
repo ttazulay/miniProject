@@ -18,6 +18,11 @@ import static primitives.Util.alignZero;
 
 
 public class RayTracerBasic extends RayTracerBase {
+
+	/**
+	 * Constructor
+	 * @param scene
+	 */
 	public RayTracerBasic(Scene scene) {
 		super(scene);
 

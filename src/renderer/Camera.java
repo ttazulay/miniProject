@@ -70,8 +70,17 @@ public class Camera {
     public void printGrid(int i, Color color) {
     }
 
-    public void writeToImage() {
-        this.image.writeToImage();
+    public void writeToImage()
+    {
+        /*try {
+            if(image!=)
+                throw MissingResourcesException();
+            this.image.writeToImage();
+        }
+        catch (Exception MissingResourcesException)
+        {}*/
+
+
     }
 }
 
