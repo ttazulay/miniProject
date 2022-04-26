@@ -12,7 +12,7 @@ public class Geometries implements Intersectable {
      * constructor
      */
     Geometries(){
-        geometrieslist = new LinkedList();
+        geometrieslist = new LinkedList<Intersectable>();
     }
 
     /**
@@ -23,6 +23,9 @@ public class Geometries implements Intersectable {
         this.add(geometries);
     }
     public void add(Intersectable... geometries){
+        if (geometrieslist==null) {
+            geometrieslist = new LinkedList<Intersectable>();
+        }
         for (Intersectable i :geometries) {
 
             geometrieslist.add(i);

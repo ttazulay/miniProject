@@ -4,6 +4,7 @@ import primitives.*;
 import scene.Scene;
 
 import java.util.List;
+import java.util.MissingResourceException;
 import java.util.Objects;
 
 public class Camera {
@@ -55,30 +56,46 @@ public class Camera {
         return this;
     }
 
+    /**
+     *Goes over the image pixels and writes the parts of the image to each one
+     */
     public void renderImage() {
-/*        int Nx=this.image.getNx();
+        if(Location==null||vto==null||vup==null||vright==null||Length==null||width==null||distance==null||image==null||base==null){
+            throw new MissingResourceException("","","");
+        }
+        int Nx=this.image.getNx();
         int Ny=this.image.getNy();
         for (int i = 0; i < Nx ; i++) {
             for (int j = 0; j <Ny ; j++) {
                 Ray  rayCasting=constructRay(Nx,Ny,j,i);
-                List<Point>rayL=
+                Color color= base.traceRay(rayCasting);
+                image.writePixel(j,i,color);
             }
 
-        }*/
+        }
     }
 
-    public void printGrid(int i, Color color) {
+    public void printGrid(int interval, Color color) {
+        int Nx=this.image.getNx();
+        int Ny=this.image.getNy();
+        for (int i = 0; i < Nx ; i++) {
+            for (int j = 0; j <Ny ; j++)
+            {
+                if(i%interval==0||j%interval==0){
+                   image.writePixel(j,i,color);
+}
+            }
+        }
+
     }
 
     public void writeToImage()
     {
-        /*try {
-            if(image!=)
-                throw MissingResourcesException();
-            this.image.writeToImage();
-        }
-        catch (Exception MissingResourcesException)
-        {}*/
+
+        if(image==null)
+            throw new MissingResourceException("","","");
+        this.image.writeToImage();
+
 
 
     }
