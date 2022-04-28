@@ -14,7 +14,6 @@ public class Ray {
 	 * @param vec
 	 */
 	public Ray(Point p0, Vector vec) {
-		super();
 		this.p0 = p0;
 		this.dir = vec.normalize();
 	}
@@ -22,11 +21,7 @@ public class Ray {
 	/**
 	 * @return the p0
 	 */
-	public Point getP0() {
-		return p0;
-	}
-
-
+	public Point getP0() {return p0;}
 	/**
 	 * @return the dir
 	 */

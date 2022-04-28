@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.MissingResourceException;
 import java.util.Objects;
 
+import static primitives.Util.isZero;
+
 public class Camera {
     protected Point Location ;
     protected Vector vto ;
@@ -43,7 +45,30 @@ public class Camera {
         return this;
     }
     public Ray constructRay(int nX, int nY, int j, int i){
-        return null;
+        Point Pc = Location.add(vto.scale(distance));
+
+        double Rx = width / nX;
+        double Ry = Length / nY;
+
+        Point Pij = Pc;
+
+        double Xj = (j - (nX - 1) / 2d) * Rx;
+        double Yi = -(i - (nY - 1) / 2d) * Ry;
+
+        if (isZero(Xj) && isZero(Yi)) {
+            return new Ray(Location, Location.subtract(Pij));
+        }
+        if (isZero(Xj)) {
+            Pij = Pij.add(vup.scale(Yi));
+            return new Ray(Location, Location.subtract(Pij));
+        }
+        if (isZero(Yi)) {
+            Pij = Pij.add(vright.scale(Xj));
+            return new Ray(Location, Location.subtract(Pij));
+        }
+
+        Pij = Pij.add(vright.scale(Xj).add(vup.scale(Yi)));
+        return new Ray(Location, Location.subtract(Pij));
     }
 
     public Camera setImageWriter(ImageWriter image) {
@@ -67,9 +92,9 @@ public class Camera {
         int Ny=this.image.getNy();
         for (int i = 0; i < Nx ; i++) {
             for (int j = 0; j <Ny ; j++) {
-                Ray  rayCasting=constructRay(Nx,Ny,j,i);
+                Ray  rayCasting=constructRay(Nx,Ny,i,j);
                 Color color= base.traceRay(rayCasting);
-                image.writePixel(j,i,color);
+                image.writePixel(i,j,color);
             }
 
         }

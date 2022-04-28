@@ -38,9 +38,14 @@ public class Geometries implements Intersectable {
 
         for (Intersectable i : geometrieslist) {
             one_geometrie = i.findIntsersections(ray);
-            for (Point p : one_geometrie) {
-                result.add(p);
+            if (one_geometrie!= null){
+                if (result==null)
+                    result=new ArrayList<>();
+                for (Point p : one_geometrie) {
+                    result.add(p);
+                }
             }
+
         }
         return result;
     }
