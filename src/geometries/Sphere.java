@@ -73,7 +73,7 @@ public class Sphere implements Geometry {
     if (P0.equals(center)) {
       return List.of(center.add(v.scale(radius)));
     }
-    Vector U = P0.subtract(center);
+    Vector U = center.subtract(P0);
 
     double tm = alignZero(U.dotProduct(v));
     double d = alignZero(Math.sqrt(U.lengthSquared() - tm * tm));

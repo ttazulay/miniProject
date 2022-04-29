@@ -24,10 +24,10 @@ public class Scene {
 
     /**
      * set background
-     * @param color
+     * @param background
      * @return
      */
-    public Scene setBackground(Color color) {
+    public Scene setBackground(Color background) {
         this.background=background;
         return this;
     }

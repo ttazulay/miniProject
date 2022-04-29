@@ -56,19 +56,19 @@ public class Camera {
         double Yi = -(i - (nY - 1) / 2d) * Ry;
 
         if (isZero(Xj) && isZero(Yi)) {
-            return new Ray(Location, Location.subtract(Pij));
+            return new Ray(Location, Pij.subtract(Location));
         }
         if (isZero(Xj)) {
             Pij = Pij.add(vup.scale(Yi));
-            return new Ray(Location, Location.subtract(Pij));
+            return new Ray(Location, Pij.subtract(Location));
         }
         if (isZero(Yi)) {
             Pij = Pij.add(vright.scale(Xj));
-            return new Ray(Location, Location.subtract(Pij));
+            return new Ray(Location, Pij.subtract(Location));
         }
 
         Pij = Pij.add(vright.scale(Xj).add(vup.scale(Yi)));
-        return new Ray(Location, Location.subtract(Pij));
+        return new Ray(Location, Pij.subtract(Location));
     }
 
     public Camera setImageWriter(ImageWriter image) {

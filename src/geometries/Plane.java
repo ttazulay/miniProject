@@ -1,5 +1,6 @@
 package geometries;
 import java.lang.Math;
+import java.util.LinkedList;
 import java.util.List;
 
 import primitives.*;
@@ -71,6 +72,7 @@ public class Plane implements Geometry {
       if(t<0)
           return null;
       Vector length=(ray.getDir()).scale(t);
+      Point_Intsersections=new LinkedList<Point>();
       Point_Intsersections.add((ray.getP0()).add(length));
     
     return ((t!=0)?Point_Intsersections:null);

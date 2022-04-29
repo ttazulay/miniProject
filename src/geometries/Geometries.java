@@ -40,13 +40,15 @@ public class Geometries implements Intersectable {
             one_geometrie = i.findIntsersections(ray);
             if (one_geometrie!= null){
                 if (result==null)
-                    result=new ArrayList<>();
+                    result=new LinkedList<>();
                 for (Point p : one_geometrie) {
                     result.add(p);
+
                 }
             }
 
         }
+
         return result;
     }
 
