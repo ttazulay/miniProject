@@ -31,14 +31,12 @@ public class RayTracerBasic extends RayTracerBase {
 	@Override
 	public Color traceRay(Ray ray) {
 		List<Point> closestPoint = scene.geometries.findIntsersections(ray);
-		System.out.println(closestPoint);
 		return closestPoint == null ? scene.background : calcColor(closestPoint, ray);
 
 	}
 
 	private Color calcColor(List<Point> closestPoint, Ray ray) {
 
-		System.out.println("in calc");
 		return  scene.ambientLight.getIntensity();
 	}
 }

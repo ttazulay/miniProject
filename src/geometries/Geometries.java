@@ -33,9 +33,7 @@ public class Geometries implements Intersectable {
     }
     public List<Point> findIntsersections(Ray ray) {
         List<Point> result = null;
-
         List<Point> one_geometrie = new LinkedList<Point>();
-
         for (Intersectable i : geometrieslist) {
             one_geometrie = i.findIntsersections(ray);
             if (one_geometrie!= null){
@@ -43,10 +41,8 @@ public class Geometries implements Intersectable {
                     result=new LinkedList<>();
                 for (Point p : one_geometrie) {
                     result.add(p);
-
                 }
             }
-
         }
 
         return result;

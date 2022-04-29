@@ -84,14 +84,14 @@ public class Point
 
 
 	public double getX() {
-		return this.getX();
+		return xyz.d1;
 	}
 
 	public double getY() {
-		return this.getY();
+		return xyz.d2;
 	}
 
 	public double getZ() {
-		return this.getZ();
+		return xyz.d3;
 	}
 }
