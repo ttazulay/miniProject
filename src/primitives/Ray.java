@@ -2,6 +2,7 @@ package primitives;
 
 import java.util.List;
 import java.util.Objects;
+import geometries.Intersectable.GeoPoint;
 
 public class Ray {
 
@@ -66,6 +67,10 @@ public class Ray {
 			}
 		}
 		return closest_point;
+	}
+	public Point findClosestGeoPoint (List<GeoPoint> lp)
+	{
+		return null;
 	}
 
 }

@@ -17,8 +17,8 @@ public class Triangle extends Polygon{
 		super(p1,p2,p3);
 		
 	}
-  
-  public List<Point> findIntsersections(Ray ray){
+    @Override
+    public List<Point> findIntsersections(Ray ray){
       /**Creates a new plane and tests the findIntsersections**/
 
     Plane Triangle_plain=new Plane(vertices.get(0), vertices.get(1), vertices.get(2));
@@ -38,8 +38,12 @@ public class Triangle extends Polygon{
    Vector n3=(v3.crossProduct(v1)).normalize();
 
     return(((dir.dotProduct(n1) > 0 && dir.dotProduct(n2) > 0 && dir.dotProduct(n3) > 0) || (dir.dotProduct(n1) < 0 && dir.dotProduct(n2) < 0 && dir.dotProduct(n3) < 0))?Triangle_Intsersections:null);
-             
-  
+    }
+    public List<GeoPoint> findGeoIntersections (Ray ray){
+        return findGeoIntersectionsHelper  (ray);
+    }
+    protected List<GeoPoint> findGeoIntersectionsHelper  (Ray ray){
+        return null;
     }
 
 }
