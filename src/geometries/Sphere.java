@@ -6,7 +6,7 @@ import primitives.*;
 
 import static primitives.Util.alignZero;
 
-public class Sphere implements Geometry {
+public class Sphere extends Geometry {
   Point center;
   double radius;
 
