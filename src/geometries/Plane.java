@@ -47,12 +47,10 @@ public class Plane extends Geometry {
         }
     }
 	
-		public Vector getNormal( ) {
-
+    public Vector getNormal( ) {
 			return normal;
-		}
+    }
 
-		
 	@Override
 	public Vector getNormal(Point p) {
 		// TODO Auto-generated method stub
@@ -63,6 +61,7 @@ public class Plane extends Geometry {
 	public String toString() {
 		return "Plane [p0=" + p0 + ", normal=" + normal + "]";
 	}
+
     @Override
     public List<Point> findIntsersections(Ray ray){
     List<Point> Point_Intsersections=null;
@@ -77,10 +76,22 @@ public class Plane extends Geometry {
     
     return ((t!=0)?Point_Intsersections:null);
     }
+
     public List<GeoPoint> findGeoIntersections (Ray ray){
         return findGeoIntersectionsHelper  (ray);
     }
+
     protected List<GeoPoint> findGeoIntersectionsHelper  (Ray ray){
-        return null;
+        List<GeoPoint> Point_Intsersections=null;
+        double counter=normal.dotProduct(p0.subtract(ray.getP0()));
+        double denominator=normal.dotProduct(ray.getDir());
+        double t=counter/denominator;
+        if(t<0)
+            return null;
+        Vector length=(ray.getDir()).scale(t);
+        Point_Intsersections=new LinkedList<GeoPoint>();
+        Point_Intsersections.add(new GeoPoint(this,ray.getP0().add(length)));
+
+        return ((t!=0)?Point_Intsersections:null);
     }
 }

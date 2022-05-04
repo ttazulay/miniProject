@@ -51,8 +51,21 @@ public class Geometries extends Intersectable {
     public List<GeoPoint> findGeoIntersections (Ray ray){
         return findGeoIntersectionsHelper  (ray);
     }
+
     protected List<GeoPoint> findGeoIntersectionsHelper  (Ray ray){
-        return null;
+        List<GeoPoint> result = null;
+        List<GeoPoint> one_geometrie = new LinkedList<GeoPoint>();
+        for (Intersectable i : geometrieslist) {
+            one_geometrie = i.findGeoIntersections(ray);
+            if (one_geometrie!= null){
+                if (result==null)
+                    result=new LinkedList<GeoPoint>();
+                for (GeoPoint p : one_geometrie) {
+                    result.add(p);
+                }
+            }
+        }
+        return result;
     }
 
 }

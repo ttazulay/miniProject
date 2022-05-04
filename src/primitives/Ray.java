@@ -68,9 +68,24 @@ public class Ray {
 		}
 		return closest_point;
 	}
-	public Point findClosestGeoPoint (List<GeoPoint> lp)
+
+	/**
+	 * find the closest GeoPoint
+	 * @param lp
+	 * @return
+	 */
+	public GeoPoint findClosestGeoPoint (List<GeoPoint> lp)
 	{
-		return null;
+		double mini_dis= this.p0.distance(lp.get(0).point);
+		GeoPoint closest_point=lp.get(0);
+		for (GeoPoint p:lp) {
+			double dis= this.p0.distance(p.point);
+			if (mini_dis>dis&& dis>0) {
+				mini_dis = dis;
+				closest_point=p;
+			}
+		}
+		return closest_point;
 	}
 
 }
