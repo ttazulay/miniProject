@@ -49,7 +49,7 @@ public class Geometries extends Intersectable {
         return result;
     }
     public List<GeoPoint> findGeoIntersections (Ray ray){
-        return findGeoIntersectionsHelper  (ray);
+        return findGeoIntersectionsHelper(ray);
     }
 
     protected List<GeoPoint> findGeoIntersectionsHelper  (Ray ray){
