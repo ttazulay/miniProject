@@ -52,22 +52,14 @@ public class Ray {
 
 	/**
 	 * find the closest point
-	 * @param lp
+	 * @param points
 	 * @return
 	 */
-	public Point findClosestPoint(List<Point> lp)
-	{
-		double mini_dis= this.p0.distance(lp.get(0));
-		Point closest_point=lp.get(0);
-		for (Point p:lp) {
-			double dis= this.p0.distance(p);
-			if (mini_dis>dis&& dis>0) {
-				mini_dis = dis;
-				closest_point=p;
-			}
-		}
-		return closest_point;
+	public Point findClosestPoint(List<Point> points) {
+		return points == null || points.isEmpty() ? null
+				: findClosestGeoPoint(points.stream().map(p -> new GeoPoint(null, p)).toList()).point;
 	}
+
 
 	/**
 	 * find the closest GeoPoint

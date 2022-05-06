@@ -32,22 +32,7 @@ public class Geometries extends Intersectable {
             geometrieslist.add(i);
         }
     }
-    @Override
-    public List<Point> findIntsersections(Ray ray) {
-        List<Point> result = null;
-        List<Point> one_geometrie = new LinkedList<Point>();
-        for (Intersectable i : geometrieslist) {
-            one_geometrie = i.findIntsersections(ray);
-            if (one_geometrie!= null){
-                if (result==null)
-                    result=new LinkedList<>();
-                for (Point p : one_geometrie) {
-                    result.add(p);
-                }
-            }
-        }
-        return result;
-    }
+
     public List<GeoPoint> findGeoIntersections (Ray ray){
         return findGeoIntersectionsHelper(ray);
     }

@@ -6,7 +6,12 @@ import java.util.List;
 import java.util.Objects;
 
 public abstract class Intersectable  {
-    public abstract List<Point> findIntsersections(Ray ray);
+
+    public List<Point> findIntersections(Ray ray) {
+        var geoList = findGeoIntersections(ray);
+        return geoList == null ? null
+                : geoList.stream().map(gp -> gp.point).toList();
+    }
     /**
      * GeoPoint- passive data structre
      */

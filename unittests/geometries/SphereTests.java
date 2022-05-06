@@ -34,7 +34,8 @@ class SphereTests {
 
 
 
-	@Test
+	//@Test
+/*
 	public void findIntsersections()
 	{
 		Sphere sphere = new Sphere( new Point(1, 0, 0),1d);
@@ -136,6 +137,7 @@ class SphereTests {
 		assertEquals( null, result,"Wrong number of points");
 
 	}
+*/
 
 
 

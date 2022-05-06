@@ -62,20 +62,6 @@ public class Plane extends Geometry {
 		return "Plane [p0=" + p0 + ", normal=" + normal + "]";
 	}
 
-    @Override
-    public List<Point> findIntsersections(Ray ray){
-    List<Point> Point_Intsersections=null;
-      double counter=normal.dotProduct(p0.subtract(ray.getP0()));
-      double denominator=normal.dotProduct(ray.getDir());
-    double t=counter/denominator;
-      if(t<0)
-          return null;
-      Vector length=(ray.getDir()).scale(t);
-      Point_Intsersections=new LinkedList<Point>();
-      Point_Intsersections.add((ray.getP0()).add(length));
-    
-    return ((t!=0)?Point_Intsersections:null);
-    }
 
     public List<GeoPoint> findGeoIntersections (Ray ray){
         return findGeoIntersectionsHelper  (ray);

@@ -33,9 +33,5 @@ public class Cylinder extends Tube {
             return dir;   //return the direction vector
         }
     }
-    @Override
-    public List<Point> findIntsersections(Ray ray){
-    return null;
-    }
 
 }
