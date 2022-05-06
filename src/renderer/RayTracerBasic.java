@@ -32,8 +32,9 @@ public class RayTracerBasic extends RayTracerBase {
 
 	@Override
 	public Color traceRay(Ray ray) {
+		System.out.print("traceRay");
 		List<GeoPoint> closestPoint = scene.geometries.findGeoIntersections(ray);
-		return closestPoint == null ? scene.background : calcColor(ray.findClosestPoint(closestPoint));
+		return closestPoint == null ? scene.background : calcColor(ray.findClosestGeoPoint(closestPoint));
 
 	}
 
@@ -41,8 +42,14 @@ public class RayTracerBasic extends RayTracerBase {
 //
 //		return  scene.ambientLight.getIntensity().add(closestPoint.geometry.getEmission());
 //	}
-	private Color calcColor(List<GeoPoint> closestPoint) {
 
+	/**
+	 * add the color of the object to the point color
+	 * @param closestPoint
+	 * @return
+	 */
+	private Color calcColor(GeoPoint closestPoint) {
+		//System.out.print("calcColor");
 		return  scene.ambientLight.getIntensity().add(closestPoint.geometry.getEmission());
 	}
 }
