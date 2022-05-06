@@ -14,6 +14,11 @@ public abstract class Intersectable  {
         public Geometry geometry;
         public Point point;
 
+        /**
+         * Initial constructor  with two parameters: geometry  and a point
+         * @param geometry
+         * @param point
+         */
         public GeoPoint(Geometry geometry, Point point) {
             this.geometry = geometry;
             this.point = point;

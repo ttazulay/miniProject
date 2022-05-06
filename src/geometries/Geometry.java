@@ -18,7 +18,7 @@ public abstract class Geometry extends Intersectable  {
     }
 
     /**
-     * set emission
+     * set emission,the color of the object
      * @param emission
      * @return
      */

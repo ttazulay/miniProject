@@ -38,10 +38,6 @@ public class RayTracerBasic extends RayTracerBase {
 
 	}
 
-//	private Color calcColor(List<GeoPoint> closestPoint, Ray ray) {
-//
-//		return  scene.ambientLight.getIntensity().add(closestPoint.geometry.getEmission());
-//	}
 
 	/**
 	 * add the color of the object to the point color
@@ -49,7 +45,7 @@ public class RayTracerBasic extends RayTracerBase {
 	 * @return
 	 */
 	private Color calcColor(GeoPoint closestPoint) {
-		//System.out.print("calcColor");
+
 		return  scene.ambientLight.getIntensity().add(closestPoint.geometry.getEmission());
 	}
 }
