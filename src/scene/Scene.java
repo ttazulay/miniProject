@@ -17,6 +17,11 @@ public class Scene {
     public Geometries geometries= new Geometries();
     public List<LightSource> lights = new LinkedList<LightSource>();
 
+    public Scene setLightSources(List<LightSource> lights) {
+        this.lights = lights;
+        return this;
+    }
+
     public Scene(String name) {
         this.name = name;
         geometries=new Geometries();
@@ -36,4 +41,5 @@ public class Scene {
         this.geometries = geometries;
         return this;
     }
+
 }

@@ -47,6 +47,7 @@ public class RayTracerBasic extends RayTracerBase {
 
 		return  scene.ambientLight.getIntensity().add(closestPoint.geometry.getEmission());
 	}
+
 }
 
 
