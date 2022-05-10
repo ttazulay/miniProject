@@ -5,7 +5,7 @@ import primitives.Double3;
 
 public class AmbientLight extends Light {
 
-    public AmbientLight(Color iA, double kA) {
+    public AmbientLight(Color iA, Double3 kA) {
         super(iA.scale(kA));
     }
 
