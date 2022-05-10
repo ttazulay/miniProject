@@ -1,4 +1,4 @@
-/*
+
 import org.junit.jupiter.api.Test;
 
 import lighting.*;
@@ -8,13 +8,11 @@ import renderer.*;
 import scene.Scene;
 import static java.awt.Color.*;
 
-*/
 /**
  * Test rendering a basic image
- * 
+ *
  * @author Dan
- *//*
-
+ */
 public class LightsTests {
 	private Scene scene1 = new Scene("Test scene");
 	private Scene scene2 = new Scene("Test scene") //
@@ -43,11 +41,9 @@ public class LightsTests {
 			.setEmission(new Color(BLUE).reduce(2)) //
 			.setMaterial(new Material().setKd(0.5).setKs(0.5).setShininess(300));
 
-	*/
-/**
+	/**
 	 * Produce a picture of a sphere lighted by a directional light
-	 *//*
-
+	 */
 	@Test
 	public void sphereDirectional() {
 		scene1.geometries.add(sphere);
@@ -60,11 +56,9 @@ public class LightsTests {
 				.writeToImage(); //
 	}
 
-	*/
-/**
+	/**
 	 * Produce a picture of a sphere lighted by a point light
-	 *//*
-
+	 */
 	@Test
 	public void spherePoint() {
 		scene1.geometries.add(sphere);
@@ -77,11 +71,9 @@ public class LightsTests {
 				.writeToImage(); //
 	}
 
-	*/
-/**
+	/**
 	 * Produce a picture of a sphere lighted by a spot light
-	 *//*
-
+	 */
 	@Test
 	public void sphereSpot() {
 		scene1.geometries.add(sphere);
@@ -94,11 +86,9 @@ public class LightsTests {
 				.writeToImage(); //
 	}
 
-	*/
-/**
+	/**
 	 * Produce a picture of a two triangles lighted by a directional light
-	 *//*
-
+	 */
 	@Test
 	public void trianglesDirectional() {
 		scene2.geometries.add(triangle1, triangle2);
@@ -111,11 +101,9 @@ public class LightsTests {
 				.writeToImage(); //
 	}
 
-	*/
-/**
+	/**
 	 * Produce a picture of a two triangles lighted by a point light
-	 *//*
-
+	 */
 	@Test
 	public void trianglesPoint() {
 		scene2.geometries.add(triangle1, triangle2);
@@ -128,11 +116,9 @@ public class LightsTests {
 				.writeToImage(); //
 	}
 
-	*/
-/**
+	/**
 	 * Produce a picture of a two triangles lighted by a spot light
-	 *//*
-
+	 */
 	@Test
 	public void trianglesSpot() {
 		scene2.geometries.add(triangle1, triangle2);
@@ -145,11 +131,9 @@ public class LightsTests {
 				.writeToImage(); //
 	}
 
-	*/
-/**
+	/**
 	 * Produce a picture of a sphere lighted by a narrow spot light
-	 *//*
-
+	 */
 	@Test
 	public void sphereSpotSharp() {
 		scene1.geometries.add(sphere);
@@ -163,11 +147,9 @@ public class LightsTests {
 				.writeToImage(); //
 	}
 
-	*/
-/**
+	/**
 	 * Produce a picture of a two triangles lighted by a narrow spot light
-	 *//*
-
+	 */
 	@Test
 	public void trianglesSpotSharp() {
 		scene2.geometries.add(triangle1, triangle2);
@@ -181,4 +163,3 @@ public class LightsTests {
 	}
 
 }
-*/
