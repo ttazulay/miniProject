@@ -34,42 +34,72 @@ public class RayTracerBasic extends RayTracerBase {
 	@Override
 	public Color traceRay(Ray ray) {
 		List<GeoPoint> closestPoint = scene.geometries.findGeoIntersections(ray);
-		return closestPoint == null ? scene.background : calcColor(ray.findClosestGeoPoint(closestPoint));
+		return closestPoint == null ? scene.background : calcColor(ray.findClosestGeoPoint(closestPoint), ray);
 
 	}
 
-
 	/**
 	 * add the color of the object to the point color
-	 * @param closestPoint
+	 * @param intersection
+	 * @param ray
 	 * @return
 	 */
-	
-/*	private Color calcColor(GeoPoint closestPoint) {
-
-		return  scene.ambientLight.getIntensity().add(closestPoint.geometry.getEmission());
-	}*/
 	private Color calcColor(GeoPoint intersection, Ray ray) {
 		return scene.ambientLight.getIntensity()
 				.add(calcLocalEffects(intersection, ray));
 	}
 
 	private Color calcLocalEffects(GeoPoint gp, Ray ray) {
-		Color color = gp.geometry.getEmission();
-		Vector v = ray.getDir (); Vector n = gp.geometry.getNormal(gp.point);
-		double nv = alignZero(n.dotProduct(v)); if (nv == 0) return color;
-		Material material = gp.geometry.getMaterial();
+		Color color = gp.geometry.getEmission();//נקבל את צבע הגוף
+		Vector v = ray.getDir ();
+		Vector n = gp.geometry.getNormal(gp.point);
+		double nv = alignZero(n.dotProduct(v));
+		if (nv == 0) return color;
+		Material mat = gp.geometry.getMaterial();
 		for (LightSource lightSource : scene.lights) {
 			Vector l = lightSource.getL(gp.point);
-			double nl = alignZero(n.dotProduct(l);
+			double nl = alignZero(n.dotProduct(l));//מכפל ה סקלרית של נורמל הגאומטריה עם וקטור האור
 			if (nl * nv > 0) { // sign(nl) == sing(nv)
-				Color iL = lightSource.getIntensity(gp.point);
-				color = color.add(iL.scale(calcDiffusive(mat, nl)),
-						iL.scale(calcSpecular(mat, n, l, nl, v));
+				Color iL = lightSource.getIntensity(gp.point);// Intensity of the light
+				color = color.add(iL.scale(calcDiffusive(mat, nl)), iL.scale(calcSpecular(mat, n, l, nl, v)));
 			}
 		}
 		return color;
 	}
+
+
+	/**
+	 *
+	 * @param mat to get the kd diffusive component
+	 * @param nl dot-product geometry Normal *light Source
+	 * @return diffusive component of light reflection
+	 */
+	private double calcDiffusive(Material mat, double nl) {
+		double kd = mat.Kd;
+		if (nl < 0){
+			nl = Math.abs(nl);
+		}
+		return nl*kd;
+	}
+
+
+	/**
+	 * Calculate Specular component of light reflection.
+	 *
+	 * @param mat 	for ks specular component and nShininess shininess level
+	 * @param n  	normal to surface
+	 * @param l		direction from light
+	 * @param nl	dot-product geometry Normal *light Source
+	 * @param v		direction from point of view
+	 * @return	specular light color
+	 */
+	private double calcSpecular(Material mat, Vector n, Vector l, double nl, Vector v) {
+		Vector r = l.subtract(n.scale(nl * 2)).normalize();
+		double factor = Math.max(0, (v.scale(-1)).dotProduct(r));
+		return mat.Ks * Math.pow(factor, mat.nShininess);
+	}
+
+
 
 }
 
