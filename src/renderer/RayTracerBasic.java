@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import geometries.Intersectable;
+import lighting.*;
 import primitives.Util;
 //import elements.LightSource;
 //import geometries.Intersectable.GeoPoint;
@@ -43,9 +44,31 @@ public class RayTracerBasic extends RayTracerBase {
 	 * @param closestPoint
 	 * @return
 	 */
-	private Color calcColor(GeoPoint closestPoint) {
+	
+/*	private Color calcColor(GeoPoint closestPoint) {
 
 		return  scene.ambientLight.getIntensity().add(closestPoint.geometry.getEmission());
+	}*/
+	private Color calcColor(GeoPoint intersection, Ray ray) {
+		return scene.ambientLight.getIntensity()
+				.add(calcLocalEffects(intersection, ray));
+	}
+
+	private Color calcLocalEffects(GeoPoint gp, Ray ray) {
+		Color color = gp.geometry.getEmission();
+		Vector v = ray.getDir (); Vector n = gp.geometry.getNormal(gp.point);
+		double nv = alignZero(n.dotProduct(v)); if (nv == 0) return color;
+		Material material = gp.geometry.getMaterial();
+		for (LightSource lightSource : scene.lights) {
+			Vector l = lightSource.getL(gp.point);
+			double nl = alignZero(n.dotProduct(l);
+			if (nl * nv > 0) { // sign(nl) == sing(nv)
+				Color iL = lightSource.getIntensity(gp.point);
+				color = color.add(iL.scale(calcDiffusive(mat, nl)),
+						iL.scale(calcSpecular(mat, n, l, nl, v));
+			}
+		}
+		return color;
 	}
 
 }

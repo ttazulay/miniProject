@@ -6,9 +6,15 @@ import primitives.Vector;
 
 public abstract class Geometry extends Intersectable  {
 
-    protected Color emission=Color.BLACK;
-    abstract public Vector getNormal(Point p);
+    private Color emission=Color.BLACK;
     private Material material = new Material();
+
+    abstract public Vector getNormal(Point p);
+
+    /**
+     * get Material
+     * @return
+     */
     public Material getMaterial() {
         return material;
     }

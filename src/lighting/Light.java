@@ -4,12 +4,16 @@ import primitives.Color;
 
 abstract class Light {
 
-	protected Color intensity;
+	private Color intensity;
 
-	public Light(Color intensity) {
+	protected Light(Color intensity) {
 		this.intensity = intensity;
 	}
 
+	/**
+	 * get the Intensity of the Light
+	 * @return
+	 */
 	public Color getIntensity() {
 		return intensity;
 	}
