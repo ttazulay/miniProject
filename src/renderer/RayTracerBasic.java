@@ -74,12 +74,12 @@ public class RayTracerBasic extends RayTracerBase {
 	 * @param nl dot-product geometry Normal *light Source
 	 * @return diffusive component of light reflection
 	 */
-	private double calcDiffusive(Material mat, double nl) {
-		double kd = mat.Kd;
+	private Double3 calcDiffusive(Material mat, double nl) {
+		Double3 kd = mat.Kd;
 		if (nl < 0){
 			nl = Math.abs(nl);
 		}
-		return nl*kd;
+		return kd.scale(nl);
 	}
 
 
@@ -93,10 +93,10 @@ public class RayTracerBasic extends RayTracerBase {
 	 * @param v		direction from point of view
 	 * @return	specular light color
 	 */
-	private double calcSpecular(Material mat, Vector n, Vector l, double nl, Vector v) {
+	private Double3 calcSpecular(Material mat, Vector n, Vector l, double nl, Vector v) {
 		Vector r = l.subtract(n.scale(nl * 2)).normalize();
 		double factor = Math.max(0, (v.scale(-1)).dotProduct(r));
-		return mat.Ks * Math.pow(factor, mat.nShininess);
+		return mat.Ks.scale(Math.pow(factor, mat.nShininess)) ;
 	}
 
 
