@@ -3,10 +3,6 @@ package geometries;
 import primitives.*;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 public abstract class Intersectable  {
 
     public List<Point> findIntersections(Ray ray) {
