@@ -1,15 +1,21 @@
-package geometries;
 
+package geometries;
+import primitives.Color;
+import primitives.Material;
+import primitives.Point;
+import primitives.Vector;
 import primitives.*;
+import primitives.Ray;
 
 import java.util.List;
 public abstract class Intersectable  {
-
+/*
     public List<Point> findIntersections(Ray ray) {
         var geoList = findGeoIntersections(ray);
         return geoList == null ? null
                 : geoList.stream().map(gp -> gp.point).toList();
     }
+*/
     /**
      * GeoPoint- passive data structre
      */
@@ -42,11 +48,11 @@ public abstract class Intersectable  {
                     '}';
         }
     }
-    public List<GeoPoint> findGeoIntersections (Ray ray){
-        return findGeoIntersectionsHelper  (ray);
-    }
-    protected List<GeoPoint> findGeoIntersectionsHelper  (Ray ray){
-        return null;
+   public List<GeoPoint> findGeoIntersections (Ray ray){
+      return findGeoIntersectionsHelper  (ray);
+  }
+   protected List<GeoPoint> findGeoIntersectionsHelper  (Ray ray){
+      return null;
     }
 
 }
