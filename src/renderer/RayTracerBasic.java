@@ -2,12 +2,9 @@
 
 package renderer;
 
-import java.util.LinkedList;
 import java.util.List;
 
-import geometries.Intersectable;
 import lighting.*;
-import primitives.Util;
 //import elements.LightSource;
 //import geometries.Intersectable.GeoPoint;
 import primitives.*;
@@ -22,6 +19,8 @@ import geometries.Intersectable.GeoPoint;
 
 public class RayTracerBasic extends RayTracerBase {
 
+	//Fixed for first moving magnitude rays for shading rays
+	private static final double DELTA = 0.1;
 	/**
 	 * Constructor
 	 * @param scene
@@ -60,9 +59,12 @@ public class RayTracerBasic extends RayTracerBase {
 			Vector l = lightSource.getL(gp.point);
 			double nl = alignZero(n.dotProduct(l));//מכפל ה סקלרית של נורמל הגאומטריה עם וקטור האור
 			if (nl * nv > 0) { // sign(nl) == sing(nv)
-				Color iL = lightSource.getIntensity(gp.point);// Intensity of the light
-				color = color.add(iL.scale(calcDiffusive(mat, nl)), iL.scale(calcSpecular(mat, n, l, nl, v)));
-			}
+				if (unshaded(gp ,lightSource, l, n)) {
+					Color iL = lightSource.getIntensity(gp.point);// Intensity of the light
+					color = color.add(iL.scale(calcDiffusive(mat, nl)), iL.scale(calcSpecular(mat, n, l, nl, v)));
+
+				}
+					}
 		}
 		return color;
 	}
@@ -99,8 +101,35 @@ public class RayTracerBasic extends RayTracerBase {
 		return mat.Ks.scale(Math.pow(factor, mat.nShininess)) ;
 	}
 
+	/**
+	 * Checking for shading between a point and the light source
+	 * @param gp
+	 * @param lightSource
+	 * @param l
+	 * @param n
+	 * @return
+	 */
+	//בודק אם מישהו חותך אותו ומקדם קצת קדימה כדי לא לפגוע בתמונה
+	private boolean unshaded(GeoPoint gp, LightSource lightSource, Vector l, Vector n){
+			Vector lightDirection = l.scale(-1); // from point to light source
+			Vector epsVector = n.scale(n.dotProduct(lightDirection) < 0 ? DELTA : -DELTA);
+			Point point = gp.point.add(epsVector);
+			Ray lightRay = new Ray(point, lightDirection);
+			List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay,lightSource.getDistance(gp.point));
+// Flat geometry can't self-intersect
+		if (intersections == null)
+			return true;
+		for (GeoPoint intersection: intersections) {
+			if (lightSource.getDistance(intersection.point)< lightSource.getDistance(gp.point))
+				return  false;
 
 
+		}
+		return true;
+
+
+
+}
 }
 
 
@@ -114,132 +143,7 @@ public class RayTracerBasic extends RayTracerBase {
 
 
 
-
-
-
-
-
-/*
-package renderer;
-
-import java.util.LinkedList;
-import java.util.List;
-
-import primitives.Util;
-//import elements.LightSource;
-//import geometries.Intersectable.GeoPoint;
-import primitives.*;
-import scene.Scene;
-import static primitives.Util.alignZero;
-
-*/
 /**
- * This class RayTracerBasic extends RayTracerBase
- * 
- * @author Elinoy Gidoni and Tamara Seban
- *//*
-
-public class RayTracerBasic extends RayTracerBase {
-
-	*/
-/**
-	 * constants for the base case of recursion
-	 *//*
-
-	private static final int MAX_CALC_COLOR_LEVEL = 10;
-	private static final double MIN_CALC_COLOR_K = 0.001;
-	private static final double INITIAL_K = 1.0;
-
-	*/
-/**
-	 * parameters for ray tracing- glossy surface and diffuse glass - they are in
-	 * class RayTracerBasic because this class is responsible on ray tracing
-	 *//*
-
-	private int numOfRays;
-
-	private double rayDistance;
-
-	public RayTracerBasic setBvh(boolean sign) {
-		this.scene.geometries.setBoxes = sign;
-		return this;
-	}
-
-	*/
-/**
-	 * gets the distance we want between the ray point and the circle
-	 *
-	 * @return double - distance
-	 *//*
-
-	public double getRayDistance() {
-		return rayDistance;
-	}
-
-	*/
-/**
-	 * sets the distance between the ray point and the circle
-	 *
-	 * @param rayDistance
-	 * @return this
-	 *//*
-
-	public RayTracerBasic setRayDistance(double rayDistance) {
-		if (rayDistance < 0)
-			throw new IllegalArgumentException("distance cant be negative");
-		this.rayDistance = rayDistance;
-		return this;
-	}
-
-	*/
-/**
-	 * get number of rays function
-	 *
-	 * @return number of rays that will be part of the beam
-	 *//*
-
-	public int getNumOfRays() {
-		return numOfRays;
-	}
-
-	*/
-/**
-	 * sets the number of rays that will be part of the beam
-	 *
-	 * @param numOfRays int - amount of rays that will be part of the beam
-	 * @return this
-	 *//*
-
-	public RayTracerBasic setNumOfRays(int numOfRays) {
-		if (numOfRays < 1)
-			throw new IllegalArgumentException("there has to be at least one ray");
-		this.numOfRays = numOfRays;
-		return this;
-	}
-
-	public RayTracerBasic(Scene scene) {
-		super(scene);
-	}
-
-	@Override
-	public Color traceRay(Ray ray) {
-		GeoPoint closestPoint = findClosestIntersection(ray);
-		return closestPoint == null ? scene.background : calcColor(closestPoint, ray);
-
-	}
-
-	*/
-/**
-	 * Calculate the color intensity in a point
-	 * 
-	 * @param intersection GeoPoint- the point for which the color is required
-	 * @param ray          Ray
-	 * @param level        - the recursion level
-	 * @param k            - double - helps with recursion
-	 * @return the color intensity
-	 *//*
-
-
 	private Color calcColor(GeoPoint  intersection, Ray ray, int level, double k) {
 
 		Color color = intersection.geometry.getEmission();

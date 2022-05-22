@@ -27,10 +27,10 @@ public class Tube extends Geometry {
 			return p.subtract(axisRay.getP0()).normalize();
 	}
 
-	public List<GeoPoint> findGeoIntersections (Ray ray){
-		return findGeoIntersectionsHelper  (ray);
+	public List<GeoPoint> findGeoIntersections (Ray ray,double maxDistance){
+		return findGeoIntersectionsHelper  (ray,maxDistance);
 	}
-	protected List<GeoPoint> findGeoIntersectionsHelper  (Ray ray){
+	protected List<GeoPoint> findGeoIntersectionsHelper  (Ray ray,double maxDistance){
 		return null;
 	}
 }

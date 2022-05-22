@@ -26,10 +26,10 @@ public class Sphere extends Geometry {
     this.radius = radius;
   }
 
-  public List<GeoPoint> findGeoIntersections (Ray ray){
-    return findGeoIntersectionsHelper  (ray);
+  public List<GeoPoint> findGeoIntersections (Ray ray,double maxDistance){
+    return findGeoIntersectionsHelper  (ray,maxDistance);
   }
-  protected List<GeoPoint> findGeoIntersectionsHelper  (Ray ray){
+  protected List<GeoPoint> findGeoIntersectionsHelper  (Ray ray,double maxDistance){
     Point P0 = ray.getP0();
     Vector v = ray.getDir();
     if (P0.equals(center)) {
@@ -49,18 +49,21 @@ public class Sphere extends Geometry {
     double t1 = alignZero(tm - th);
     double t2 = alignZero(tm + th);
 
-    if (t1 > 0 && t2 > 0) {
+    boolean val1=alignZero(t1-maxDistance)<=0;
+    boolean val2=alignZero(t2-maxDistance)<=0;
+
+    if (t1 > 0 && t2 > 0 && val1 && val2) {
 
       Point P1 = ray.getPoint(t1);
       Point P2 = ray.getPoint(t2);
 
       return List.of(new GeoPoint(this,P1),new GeoPoint(this,P2));
     }
-    if (t1 > 0) {
+    if (t1 > 0&& val1) {
       Point P1 = ray.getPoint(t1);
       return List.of(new GeoPoint(this,P1));
     }
-    if (t2 > 0) {
+    if (t2 > 0&& val2) {
       Point P2 = ray.getPoint(t2);
       return List.of(new GeoPoint(this,P2));
     }

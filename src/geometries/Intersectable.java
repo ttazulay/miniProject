@@ -48,11 +48,21 @@ public abstract class Intersectable  {
                     '}';
         }
     }
-   public List<GeoPoint> findGeoIntersections (Ray ray){
-      return findGeoIntersectionsHelper  (ray);
-  }
-   protected List<GeoPoint> findGeoIntersectionsHelper  (Ray ray){
-      return null;
+
+    public  List<GeoPoint> findGeoIntersections(Ray ray) {
+        return findGeoIntersections(ray, Double.POSITIVE_INFINITY);
     }
+    public  List<GeoPoint> findGeoIntersections(Ray ray, double maxDistance) {
+        return findGeoIntersectionsHelperHelper(ray, maxDistance);
+    }
+
+    private List<GeoPoint> findGeoIntersectionsHelperHelper(Ray ray, double maxDistance) {
+        return null;
+    }
+
+    protected abstract List<GeoPoint>
+    findGeoIntersectionsHelper(Ray ray, double maxDistance);
+
+
 
 }

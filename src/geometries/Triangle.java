@@ -19,10 +19,10 @@ public class Triangle extends Polygon{
 		
 	}
 
-    public List<GeoPoint> findGeoIntersections (Ray ray){
-        return findGeoIntersectionsHelper  (ray);
+    public List<GeoPoint> findGeoIntersections (Ray ray,double maxDistance){
+        return findGeoIntersectionsHelper  (ray,maxDistance);
     }
-    protected List<GeoPoint> findGeoIntersectionsHelper  (Ray ray){
+    protected List<GeoPoint> findGeoIntersectionsHelper  (Ray ray,double maxDistance){
         /**Creates a new plane and tests the findIntsersections**/
 
         Plane Triangle_plain=new Plane(vertices.get(0), vertices.get(1), vertices.get(2));

@@ -1,6 +1,8 @@
 //=
 package geometries;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import primitives.*;
@@ -90,10 +92,42 @@ public class Polygon extends Geometry {
 		return plane.getNormal();
 	}
 
-	public List<GeoPoint> findGeoIntersections (Ray ray){
-		return findGeoIntersectionsHelper  (ray);
+	@Override
+	public List<GeoPoint> findGeoIntersections (Ray ray,double maxDistance){
+		return findGeoIntersectionsHelper  (ray,maxDistance);
 	}
-	protected List<GeoPoint> findGeoIntersectionsHelper  (Ray ray){
+
+	@Override
+	protected List<GeoPoint> findGeoIntersectionsHelper(Ray ray, double maxDistance) {
+		List<GeoPoint> intersection=plane.findGeoIntersections(ray,maxDistance);
+		if(intersection==null)
+			return null;
+		intersection.get(0).geometry=this;
+		ArrayList<Vector> vectors= new ArrayList<Vector>(vertices.size());
+		ArrayList<Vector> normals = new ArrayList<Vector>(vertices.size());
+		for (Point p:vertices) {
+		vectors.add(p.subtract(ray.getP0()));
+		}
+		for (int i=0;i<vertices.size()-1;++i){
+			normals.add(vectors.get(i).crossProduct(vectors.get(i+1).normalize()));
+		}
+		normals.add(vectors.get(vectors.size()-1).crossProduct(vectors.get(0).normalize()));
+		double first = alignZero(normals.get(0).dotProduct(ray.getDir()));
+		if (first>0){
+			for (int i=1; i<normals.size();++i){
+				if (alignZero(normals.get(i).dotProduct(ray.getDir()))<=0)
+					return null;
+			}
+			return intersection;
+		}
+		if (first<0){
+			for (int i=1;i<normals.size();++i){
+				if (alignZero(normals.get(i).dotProduct(ray.getDir()))<=0)
+					return null;
+			}
+			return intersection;
+		}
 		return null;
 	}
+
 }

@@ -2,6 +2,7 @@ package primitives;
 
 public class Material {
 
+
 	public Double3 Kd= new Double3(0.0) ;
 	public Double3 Ks = new Double3(0.0) ;
 	public int nShininess = 0;

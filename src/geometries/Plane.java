@@ -5,6 +5,9 @@ import java.util.List;
 
 import primitives.*;
 
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
+
 public class Plane extends Geometry {
 
 	Point p0;
@@ -62,17 +65,22 @@ public class Plane extends Geometry {
 		return "Plane [p0=" + p0 + ", normal=" + normal + "]";
 	}
 
-
-    public List<GeoPoint> findGeoIntersections (Ray ray){
-        return findGeoIntersectionsHelper  (ray);
+    @Override
+    public List<GeoPoint> findGeoIntersections (Ray ray,double maxDistance){
+        return findGeoIntersectionsHelper  (ray,maxDistance);
     }
 
-    protected List<GeoPoint> findGeoIntersectionsHelper  (Ray ray){
+    protected List<GeoPoint> findGeoIntersectionsHelper  (Ray ray,double maxDistance){
+        if (p0.equals(ray.getP0()))return null;
+
         List<GeoPoint> Point_Intsersections=null;
         double counter=normal.dotProduct(p0.subtract(ray.getP0()));
         double denominator=normal.dotProduct(ray.getDir());
+        if (isZero(denominator))
+            return null;
+
         double t=counter/denominator;
-        if(t<0)
+        if(t<0||alignZero(t-maxDistance)>0)
             return null;
         Vector length=(ray.getDir()).scale(t);
         Point_Intsersections=new LinkedList<GeoPoint>();
