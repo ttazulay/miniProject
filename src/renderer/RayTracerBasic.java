@@ -59,7 +59,7 @@ public class RayTracerBasic extends RayTracerBase {
 			Vector l = lightSource.getL(gp.point);
 			double nl = alignZero(n.dotProduct(l));//מכפל ה סקלרית של נורמל הגאומטריה עם וקטור האור
 			if (nl * nv > 0) { // sign(nl) == sing(nv)
-				if (unshaded(gp ,lightSource, l, n)) {
+				if (unshaded(gp,lightSource, l, n)) {
 					Color iL = lightSource.getIntensity(gp.point);// Intensity of the light
 					color = color.add(iL.scale(calcDiffusive(mat, nl)), iL.scale(calcSpecular(mat, n, l, nl, v)));
 
@@ -101,27 +101,26 @@ public class RayTracerBasic extends RayTracerBase {
 		return mat.Ks.scale(Math.pow(factor, mat.nShininess)) ;
 	}
 
+
 	/**
-	 * Checking for shading between a point and the light source
+	 *
 	 * @param gp
 	 * @param lightSource
 	 * @param l
 	 * @param n
 	 * @return
 	 */
-	//בודק אם מישהו חותך אותו ומקדם קצת קדימה כדי לא לפגוע בתמונה
 	private boolean unshaded(GeoPoint gp, LightSource lightSource, Vector l, Vector n){
 			Vector lightDirection = l.scale(-1); // from point to light source
-			Vector epsVector = n.scale(n.dotProduct(lightDirection) < 0 ? DELTA : -DELTA);
+			Vector epsVector = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : -DELTA);
 			Point point = gp.point.add(epsVector);
 			Ray lightRay = new Ray(point, lightDirection);
-			double lightDistance =lightSource.getDistance(gp.point);// the distance between the light source and the geopoint
 			List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay,lightSource.getDistance(gp.point));
 // Flat geometry can't self-intersect
 		if (intersections == null)
 			return true;
 		for (GeoPoint intersection: intersections) {
-			if (alignZero(intersection.point.distance(gp.point)-lightDistance) <= 0)
+			if (lightSource.getDistance(gp.point) >= intersection.point.distance(gp.point) )
 				return  false;
 		}
 		return true;
