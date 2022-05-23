@@ -115,22 +115,21 @@ public class RayTracerBasic extends RayTracerBase {
 			Vector epsVector = n.scale(n.dotProduct(lightDirection) < 0 ? DELTA : -DELTA);
 			Point point = gp.point.add(epsVector);
 			Ray lightRay = new Ray(point, lightDirection);
+			double lightDistance =lightSource.getDistance(gp.point);// the distance between the light source and the geopoint
 			List<GeoPoint> intersections = scene.geometries.findGeoIntersections(lightRay,lightSource.getDistance(gp.point));
 // Flat geometry can't self-intersect
 		if (intersections == null)
 			return true;
 		for (GeoPoint intersection: intersections) {
-			if (lightSource.getDistance(intersection.point)< lightSource.getDistance(gp.point))
+			if (alignZero(intersection.point.distance(gp.point)-lightDistance) <= 0)
 				return  false;
-
-
 		}
 		return true;
 
-
-
 }
 }
+
+
 
 
 
