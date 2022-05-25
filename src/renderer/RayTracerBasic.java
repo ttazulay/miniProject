@@ -120,6 +120,7 @@ public class RayTracerBasic extends RayTracerBase {
 		if (intersections == null)
 			return true;
 		for (GeoPoint intersection: intersections) {
+			//if there are points in the intersections list that are closer to the point we check
 			if (lightSource.getDistance(gp.point) >= intersection.point.distance(gp.point) )
 				return  false;
 		}

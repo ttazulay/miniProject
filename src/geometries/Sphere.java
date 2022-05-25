@@ -49,6 +49,7 @@ public class Sphere extends Geometry {
     double t1 = alignZero(tm - th);
     double t2 = alignZero(tm + th);
 
+    //Preventing the addition of a list that includes points that are farther from the ray head than the maximum distance
     boolean val1=alignZero(t1-maxDistance)<=0;
     boolean val2=alignZero(t2-maxDistance)<=0;
 
