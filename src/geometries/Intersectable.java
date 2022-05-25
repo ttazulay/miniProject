@@ -16,6 +16,7 @@ public abstract class Intersectable  {
                 : geoList.stream().map(gp -> gp.point).toList();
     }
 */
+
     /**
      * GeoPoint- passive data structre
      */
