@@ -32,6 +32,20 @@ public class Material {
 	}
 
 	/**
+	 * set Kt-tranperancy parameter with double //שקיפות
+	 * @param kT
+	 * @return
+	 */
+	public Material setKt(double kT) {
+		this.Kt = new Double3(kT) ;
+		return this;
+	}
+
+	public Material setKr(Double kR) {
+		this.Kr = new Double3(kR) ;
+		return this;
+	}
+	/**
 	 *set kd-diffuse parameter//מריחה של אור
 	 * @param kD
 	 * @return
@@ -80,5 +94,7 @@ public class Material {
 		this.nShininess = nShininess;
 		return this;
 	}
+
+
 
 }

@@ -41,8 +41,8 @@ public class ReflectionRefractionTests {
 
 		camera.setImageWriter(new ImageWriter("refractionTwoSpheres", 500, 500)) //
 				.setRayTracer(new RayTracerBasic(scene)) //
-				.renderImage() //
-				.writeToImage();
+				.renderImage(); //
+		camera.writeToImage();
 	}
 
 	/**
@@ -53,7 +53,7 @@ public class ReflectionRefractionTests {
 		Camera camera = new Camera(new Point(0, 0, 10000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
 				.setVPSize(2500, 2500).setVPDistance(10000); //
 
-		scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), 0.1));
+		scene.setAmbientLight(new AmbientLight(new Color(255, 255, 255), new Double3(0.1)));
 
 		scene.geometries.add( //
 				new Sphere(new Point(-950, -900, -1000), 400d).setEmission(new Color(0, 0, 100)) //
@@ -62,7 +62,7 @@ public class ReflectionRefractionTests {
 						.setMaterial(new Material().setKd(0.25).setKs(0.25).setShininess(20)),
 				new Triangle(new Point(1500, -1500, -1500), new Point(-1500, 1500, -1500), new Point(670, 670, 3000)) //
 						.setEmission(new Color(20, 20, 20)) //
-						.setMaterial(new Material().setKr(1)),
+						.setMaterial(new Material().setKr(1.0)),
 				new Triangle(new Point(1500, -1500, -1500), new Point(-1500, 1500, -1500),
 						new Point(-1500, -1500, -2000)) //
 						.setEmission(new Color(20, 20, 20)) //
@@ -74,8 +74,8 @@ public class ReflectionRefractionTests {
 		ImageWriter imageWriter = new ImageWriter("reflectionTwoSpheresMirrored", 500, 500);
 		camera.setImageWriter(imageWriter) //
 				.setRayTracer(new RayTracerBasic(scene)) //
-				.renderImage() //
-				.writeToImage();
+				.renderImage(); //
+		camera.writeToImage();
 	}
 
 	/**
@@ -87,7 +87,7 @@ public class ReflectionRefractionTests {
 		Camera camera = new Camera(new Point(0, 0, 1000), new Vector(0, 0, -1), new Vector(0, 1, 0)) //
 				.setVPSize(200, 200).setVPDistance(1000);
 
-		scene.setAmbientLight(new AmbientLight(new Color(WHITE), 0.15));
+		scene.setAmbientLight(new AmbientLight(new Color(WHITE), new Double3(0.15)));
 
 		scene.geometries.add( //
 				new Triangle(new Point(-150, -150, -115), new Point(150, -150, -135), new Point(75, 75, -150)) //
@@ -103,7 +103,7 @@ public class ReflectionRefractionTests {
 		ImageWriter imageWriter = new ImageWriter("refractionShadow", 600, 600);
 		camera.setImageWriter(imageWriter) //
 				.setRayTracer(new RayTracerBasic(scene)) //
-				.renderImage() //
-				.writeToImage();
+				.renderImage(); //
+		camera.writeToImage();
 	}
 }
