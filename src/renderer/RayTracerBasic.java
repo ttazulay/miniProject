@@ -30,6 +30,11 @@ public class RayTracerBasic extends RayTracerBase {
 	private static final int MAX_CALC_COLOR_LEVEL = 10;
 	private static final double MIN_CALC_COLOR_K = 0.001;
 
+	private static final double DELTA = 0.1;
+	private boolean unshaded(GeoPoint gp, Vector l, Vector n,LightSource light){
+
+		return true;
+	}
 	/**
 	 * Constructor
 	 *
@@ -96,6 +101,29 @@ public class RayTracerBasic extends RayTracerBase {
 		}
 		return color;
 
+	}
+
+	/**
+	 * Calculate Specular component of light reflection.
+	 * @return specular light color
+	 */
+
+	private Color calcSpecular(double ks, Vector l, Vector n, double nl, Vector v, int nShininess, Color ip) {
+
+		Vector r = l.subtract(n.scale(nl * 2)).normalize();
+		double factor = Math.max(0, (v.scale(-1)).dotProduct(r));
+		return ip.scale(ks * Math.pow(factor, nShininess));
+
+	}
+	/**
+	 * Calculate Diffusive component of light reflection.
+	 * @return diffusive component of light reflection
+	 */
+	private Color calcDiffusive(double kd, double nl, Color ip) {
+		if (nl < 0) // if nl is negative we make it positive
+			nl = Math.abs(nl);
+		Color scaled = ip.scale(nl * kd);// scales nl with the diffuse component
+		return scaled;
 	}
 
 
