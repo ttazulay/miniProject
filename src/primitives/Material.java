@@ -3,8 +3,8 @@ package primitives;
 public class Material {
 
 
-	public Double3 Kd= new Double3(0.0) ;
-	public Double3 Ks = new Double3(0.0) ;
+	public Double3 Kd= new Double3(0.0) ;//diffuse התפשתות
+	public Double3 Ks = new Double3(0.0) ;//specular
 	public Double3 Kt= new Double3(0.0) ;//Transparency שקיפות
 	public Double3 Kr = new Double3(0.0) ;//reflection השתקפות
 
@@ -95,6 +95,23 @@ public class Material {
 		return this;
 	}
 
+	public int getnShininess() {
+		return nShininess;
+	}
 
+	public Double3 getKd() {
+		return Kd;
+	}
 
+	public Double3 getKs() {
+		return Ks;
+	}
+
+	public Double3 getKt() {
+		return Kt;
+	}
+
+	public Double3 getKr() {
+		return Kr;
+	}
 }

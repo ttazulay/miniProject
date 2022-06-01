@@ -74,7 +74,7 @@ public class RayTracerBasic extends RayTracerBase {
 
 	/**
 	 * Calculates the color at a given point according to local effects
-	 * @param gp
+	  * @param gp
 	 * @param ray
 	 * @param k
 	 * @return
@@ -106,6 +106,9 @@ public class RayTracerBasic extends RayTracerBase {
 
 	}
 
+
+
+
 	/**
 	 * Calculate Specular component of light reflection.
 	 * @return specular light color
@@ -118,6 +121,7 @@ public class RayTracerBasic extends RayTracerBase {
 		return ip.scale(ks * Math.pow(factor, nShininess));
 
 	}
+
 	/**
 	 * Calculate Diffusive component of light reflection.
 	 * @return diffusive component of light reflection
@@ -130,19 +134,21 @@ public class RayTracerBasic extends RayTracerBase {
 	}
 
 
-
 	private Color calcGlobalEffects(GeoPoint intersection, Ray ray, int level, Double k) {
 		Color color = Color.BLACK;
 		Vector n = intersection.geometry.getNormal(intersection.point);
 		Material material = intersection.geometry.getMaterial();
 		double kkr = k* material.Kr.getD1() ;
 		if (kkr > MIN_CALC_COLOR_K)
-			color = calcGlobalEffect(constructReflectedRay(intersection.point, ray.getDir(), n), level, material.Kr.getD1(), kkr);
+			color = calcGlobalEffect(constructReflectedRay(intersection.point, ray, n), level, material.Kr.getD1(), kkr);
 		double kkt = k * material.Kt.getD1();
 		if (kkt > MIN_CALC_COLOR_K)
-			color = color.add(calcGlobalEffect(constructRefractedRay(intersection.point, ray, n), level, material.Kr.getD1(), kkt));
+			color = color.add(calcGlobalEffect(constructRefractedRay(intersection.point, ray, n), level, material.Kt.getD1(), kkt));
 		return color;
 	}
+
+
+
 
 
 	private Color calcGlobalEffect(Ray ray, int level, double kx, double kkx)
@@ -152,9 +158,12 @@ public class RayTracerBasic extends RayTracerBase {
 	}
 
 
-	private Ray constructReflectedRay(Point point, Vector v, Vector n) {
-		Vector r=v.subtract(n.scale(2*v.dotProduct(n)));
+
+	private Ray constructReflectedRay(Point point, Ray v, Vector n)
+	{
+		Vector r= v.getDir().subtract((n.scale(v.getDir().dotProduct(n)).scale(2))).normalize();
 		return new Ray(point,r,n);
+
 	}
 
 	private Ray constructRefractedRay(Point point, Ray v, Vector n)
@@ -162,26 +171,6 @@ public class RayTracerBasic extends RayTracerBase {
 		return new Ray(point, v.getDir(), n);
 	}
 
-
-
-
-/*
-	private Double3 calcTranperancy(Material mat){
-
-	}*/
-
-	/**
-	 * constructing a reflected ray r=v-2*(v*n)*n
-	 * @param point
-	 * @param v
-	 * @param n
-	 * @return
-	 */
-	private Ray calcReflection(Point point, Vector v, Vector n){
-
-		Vector r=v.subtract(n.scale(2*v.dotProduct(n)));
-		return new Ray(point,r);
-	}
 
 	/**
 	 * @param mat to get the kd diffusive component
@@ -253,17 +242,15 @@ public class RayTracerBasic extends RayTracerBase {
 		for (GeoPoint intersection : intersections) {
 			//if there are points in the intersections list that are closer to the point we check
 			if (lightSource.getDistance(gp.point) >= intersection.point.distance(gp.point)) {
-				//??ktr  = intersection.geometry.getMaterial().Kt.scale(ktr);/// multiplies with the geometry's transparency
+					ktr*=intersection.geometry.getMaterial().Kt.getD1();/// multiplies with the geometry's transparency
 				if (ktr < MIN_CALC_COLOR_K)// if the transparency is smaller than the min calc color
 					return 0.0;
 			}
 		}
 		return ktr;
 
-
-
-
 	}
+
 
 	private GeoPoint findClosestIntersection(Ray ray) {
 		GeoPoint closest = null;// so far the closest point is unknown
@@ -286,6 +273,8 @@ public class RayTracerBasic extends RayTracerBase {
 		}
 		return closest;
 	}
+
+
 
 
 }

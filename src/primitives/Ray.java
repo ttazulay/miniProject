@@ -20,7 +20,12 @@ public class Ray {
 		this.dir = vec.normalize();
 	}
 
-
+	/**
+	 * constractor that calculates new ray with a delta
+	 * @param point
+	 * @param lightDirection
+	 * @param n
+	 */
 	public Ray(Point point, Vector lightDirection, Vector n) {
 		Vector delta = n.scale(n.dotProduct(lightDirection) > 0 ? DELTA : - DELTA);
 		p0= point.add(delta);
