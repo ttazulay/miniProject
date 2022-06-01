@@ -34,6 +34,12 @@ public class RayTracerBasic extends RayTracerBase {
 		super(scene);
 	}
 
+
+	/**
+	 * מוצא את הנקודת חיתח הכי קרובה לקרן ואם היא לא קיימת מחזיר אתה רקע אחרת מביא את הצבא
+	 * @param ray
+	 * @return
+	 */
 	@Override
 	public Color traceRay(Ray ray) {
 		//List<GeoPoint> closestPoint = scene.geometries.findGeoIntersections(ray);
@@ -74,6 +80,7 @@ public class RayTracerBasic extends RayTracerBase {
 
 	/**
 	 * Calculates the color at a given point according to local effects
+	 * //הצבע עצמו והמיבנה עצמו של הגוף דרך ה transparency
 	  * @param gp
 	 * @param ray
 	 * @param k
@@ -109,31 +116,23 @@ public class RayTracerBasic extends RayTracerBase {
 
 
 
-	/**
-	 * Calculate Specular component of light reflection.
-	 * @return specular light color
-	 */
 
-	private Color calcSpecular(double ks, Vector l, Vector n, double nl, Vector v, int nShininess, Color ip) {
 
-		Vector r = l.subtract(n.scale(nl * 2)).normalize();
-		double factor = Math.max(0, (v.scale(-1)).dotProduct(r));
-		return ip.scale(ks * Math.pow(factor, nShininess));
 
-	}
+
+
 
 	/**
-	 * Calculate Diffusive component of light reflection.
-	 * @return diffusive component of light reflection
+	 *Using a chain of rays, compute the color that will appear on the geometry under the influence of other geometrys and its state of transparency and reflection.
+	 * מחשב בעזרת שרשור קרנים את הצבע שיופיע ע הגוף בהשפעת גופים אחרים ומצב השקיפות וההשתקפות שלו
+	 * @param intersection
+	 * @param ray
+	 * @param level=עד לסוך הרמה הנתונה יבצע את הרקורסיה במקרה נגיד שהוא משתקף עד אינסוף
+	 *             Until the end the given level will perform the recursion in case we say it is reflected to infinity
+	 * @param k=עד לגבול השתקפות/שקיפות מסויימת שניבחר שאחריה התמונה חסרת משמעות בעיננו
+	 *         Up to the limit of a certain reflection / transparency that is chosen, after which the image is meaningless in his eyes
+	 * @return
 	 */
-	private Color calcDiffusive(double kd, double nl, Color ip) {
-		if (nl < 0) // if nl is negative we make it positive
-			nl = Math.abs(nl);
-		Color scaled = ip.scale(nl * kd);// scales nl with the diffuse component
-		return scaled;
-	}
-
-
 	private Color calcGlobalEffects(GeoPoint intersection, Ray ray, int level, Double k) {
 		Color color = Color.BLACK;
 		Vector n = intersection.geometry.getNormal(intersection.point);
@@ -158,7 +157,14 @@ public class RayTracerBasic extends RayTracerBase {
 	}
 
 
-
+	/**
+	 *Creates the next reflection beam plus the delta
+	 * יוצר את קרן ההשתקפות הבאה בתוספת הדלתא
+	 * @param point
+	 * @param v
+	 * @param n
+	 * @return
+	 */
 	private Ray constructReflectedRay(Point point, Ray v, Vector n)
 	{
 		Vector r= v.getDir().subtract((n.scale(v.getDir().dotProduct(n)).scale(2))).normalize();
@@ -166,6 +172,14 @@ public class RayTracerBasic extends RayTracerBase {
 
 	}
 
+	/**
+	 * Creates the next Refracted beam plus the delta
+	 * 	 יוצר את קרן השקיפות הבאה בתוספת הדלתא
+	 * @param point
+	 * @param v
+	 * @param n
+	 * @return
+	 */
 	private Ray constructRefractedRay(Point point, Ray v, Vector n)
 	{
 		return new Ray(point, v.getDir(), n);
@@ -188,6 +202,7 @@ public class RayTracerBasic extends RayTracerBase {
 
 	/**
 	 * Calculate Specular component of light reflection.
+	 * האור החוזר מהגוף
 	 *
 	 * @param mat for ks specular component and nShininess shininess level
 	 * @param n   normal to surface
@@ -228,6 +243,15 @@ public class RayTracerBasic extends RayTracerBase {
 
 	}
 
+	/**
+	 * Performs a recursion test of all the material through which the light beam passes and returns the intensity of light between 1-0
+	 * מבצע ברקורסיה בדיקה של כול הגופים שקרן האור עוברת דרכם ומחזירה בין 1-0 את עוצמת האור
+	 * @param gp
+	 * @param lightSource
+	 * @param l
+	 * @param n
+	 * @return
+	 */
 	private double transparency(GeoPoint gp, LightSource lightSource, Vector l, Vector n) {
 
 		Vector lightDirection = l.scale(-1); // from point to light source

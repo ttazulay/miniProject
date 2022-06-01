@@ -22,6 +22,7 @@ public class Ray {
 
 	/**
 	 * constractor that calculates new ray with a delta
+	 * Adds delta  In order not to start from the point itself
 	 * @param point
 	 * @param lightDirection
 	 * @param n

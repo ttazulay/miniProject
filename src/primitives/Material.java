@@ -3,8 +3,8 @@ package primitives;
 public class Material {
 
 
-	public Double3 Kd= new Double3(0.0) ;//diffuse התפשתות
-	public Double3 Ks = new Double3(0.0) ;//specular
+	public Double3 Kd= new Double3(0.0) ;//diffuse התפשטות
+	public Double3 Ks = new Double3(0.0) ;//specular//נותן את תחושת המבריקות את התאורות על הגוף
 	public Double3 Kt= new Double3(0.0) ;//Transparency שקיפות
 	public Double3 Kr = new Double3(0.0) ;//reflection השתקפות
 
